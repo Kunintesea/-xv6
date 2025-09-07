@@ -1,0 +1,188 @@
+
+xv6 kernel is booting
+
+hart 1 starting
+hart 2 starting
+init: starting sh
+$ usertests
+usertests starting
+usertrap(): 懒分配失败 va=0x0000000007ee1fff pid=4
+            sepc=0x0000000000004eb6 stval=0x0000000007ee1fff
+test execout: usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=6
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=7
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=8
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=9
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=10
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=11
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=12
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=13
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=14
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=15
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=16
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=17
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=18
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=19
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+usertrap(): 懒分配失败 va=0x0000000007ecbfff pid=20
+            sepc=0x0000000000002a7e stval=0x0000000007ecbfff
+OK
+test copyin: OK
+test copyout: OK
+test copyinstr1: OK
+test copyinstr2: OK
+test copyinstr3: OK
+test rwsbrk: OK
+test truncate1: OK
+test truncate2: OK
+test truncate3: OK
+test reparent2: OK
+test pgbug: OK
+test sbrkbugs: OK
+test badarg: OK
+test reparent: OK
+test twochildren: OK
+test forkfork: OK
+test forkforkfork: OK
+test argptest: OK
+test createdelete: OK
+test linkunlink: OK
+test linktest: OK
+test unlinkread: OK
+test concreate: OK
+test subdir: OK
+test fourfiles: OK
+test sharedfd: OK
+test exectest: OK
+test bigargtest: OK
+test bigwrite: OK
+test bsstest: OK
+test sbrkbasic: usertrap(): 懒分配失败 va=0x0000000007ecb000 pid=6211
+            sepc=0x00000000000024b2 stval=0x0000000007ecb000
+OK
+test sbrkmuch: OK
+test kernmem: usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080000000 p->sz=0x0000000000011000 pid=6215
+            sepc=0x000000000000201a stval=0x0000000080000000
+usertrap(): 虚拟地址超出进程内存范围 va=0x000000008000c350 p->sz=0x0000000000011000 pid=6216
+            sepc=0x000000000000201a stval=0x000000008000c350
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800186a0 p->sz=0x0000000000011000 pid=6217
+            sepc=0x000000000000201a stval=0x00000000800186a0
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800249f0 p->sz=0x0000000000011000 pid=6218
+            sepc=0x000000000000201a stval=0x00000000800249f0
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080030d40 p->sz=0x0000000000011000 pid=6219
+            sepc=0x000000000000201a stval=0x0000000080030d40
+usertrap(): 虚拟地址超出进程内存范围 va=0x000000008003d090 p->sz=0x0000000000011000 pid=6220
+            sepc=0x000000000000201a stval=0x000000008003d090
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800493e0 p->sz=0x0000000000011000 pid=6221
+            sepc=0x000000000000201a stval=0x00000000800493e0
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080055730 p->sz=0x0000000000011000 pid=6222
+            sepc=0x000000000000201a stval=0x0000000080055730
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080061a80 p->sz=0x0000000000011000 pid=6223
+            sepc=0x000000000000201a stval=0x0000000080061a80
+usertrap(): 虚拟地址超出进程内存范围 va=0x000000008006ddd0 p->sz=0x0000000000011000 pid=6224
+            sepc=0x000000000000201a stval=0x000000008006ddd0
+usertrap(): 虚拟地址超出进程内存范围 va=0x000000008007a120 p->sz=0x0000000000011000 pid=6225
+            sepc=0x000000000000201a stval=0x000000008007a120
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080086470 p->sz=0x0000000000011000 pid=6226
+            sepc=0x000000000000201a stval=0x0000000080086470
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800927c0 p->sz=0x0000000000011000 pid=6227
+            sepc=0x000000000000201a stval=0x00000000800927c0
+usertrap(): 虚拟地址超出进程内存范围 va=0x000000008009eb10 p->sz=0x0000000000011000 pid=6228
+            sepc=0x000000000000201a stval=0x000000008009eb10
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800aae60 p->sz=0x0000000000011000 pid=6229
+            sepc=0x000000000000201a stval=0x00000000800aae60
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800b71b0 p->sz=0x0000000000011000 pid=6230
+            sepc=0x000000000000201a stval=0x00000000800b71b0
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800c3500 p->sz=0x0000000000011000 pid=6231
+            sepc=0x000000000000201a stval=0x00000000800c3500
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800cf850 p->sz=0x0000000000011000 pid=6232
+            sepc=0x000000000000201a stval=0x00000000800cf850
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800dbba0 p->sz=0x0000000000011000 pid=6233
+            sepc=0x000000000000201a stval=0x00000000800dbba0
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800e7ef0 p->sz=0x0000000000011000 pid=6234
+            sepc=0x000000000000201a stval=0x00000000800e7ef0
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000800f4240 p->sz=0x0000000000011000 pid=6235
+            sepc=0x000000000000201a stval=0x00000000800f4240
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080100590 p->sz=0x0000000000011000 pid=6236
+            sepc=0x000000000000201a stval=0x0000000080100590
+usertrap(): 虚拟地址超出进程内存范围 va=0x000000008010c8e0 p->sz=0x0000000000011000 pid=6237
+            sepc=0x000000000000201a stval=0x000000008010c8e0
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080118c30 p->sz=0x0000000000011000 pid=6238
+            sepc=0x000000000000201a stval=0x0000000080118c30
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080124f80 p->sz=0x0000000000011000 pid=6239
+            sepc=0x000000000000201a stval=0x0000000080124f80
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000801312d0 p->sz=0x0000000000011000 pid=6240
+            sepc=0x000000000000201a stval=0x00000000801312d0
+usertrap(): 虚拟地址超出进程内存范围 va=0x000000008013d620 p->sz=0x0000000000011000 pid=6241
+            sepc=0x000000000000201a stval=0x000000008013d620
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080149970 p->sz=0x0000000000011000 pid=6242
+            sepc=0x000000000000201a stval=0x0000000080149970
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080155cc0 p->sz=0x0000000000011000 pid=6243
+            sepc=0x000000000000201a stval=0x0000000080155cc0
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080162010 p->sz=0x0000000000011000 pid=6244
+            sepc=0x000000000000201a stval=0x0000000080162010
+usertrap(): 虚拟地址超出进程内存范围 va=0x000000008016e360 p->sz=0x0000000000011000 pid=6245
+            sepc=0x000000000000201a stval=0x000000008016e360
+usertrap(): 虚拟地址超出进程内存范围 va=0x000000008017a6b0 p->sz=0x0000000000011000 pid=6246
+            sepc=0x000000000000201a stval=0x000000008017a6b0
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080186a00 p->sz=0x0000000000011000 pid=6247
+            sepc=0x000000000000201a stval=0x0000000080186a00
+usertrap(): 虚拟地址超出进程内存范围 va=0x0000000080192d50 p->sz=0x0000000000011000 pid=6248
+            sepc=0x000000000000201a stval=0x0000000080192d50
+usertrap(): 虚拟地址超出进程内存范围 va=0x000000008019f0a0 p->sz=0x0000000000011000 pid=6249
+            sepc=0x000000000000201a stval=0x000000008019f0a0
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000801ab3f0 p->sz=0x0000000000011000 pid=6250
+            sepc=0x000000000000201a stval=0x00000000801ab3f0
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000801b7740 p->sz=0x0000000000011000 pid=6251
+            sepc=0x000000000000201a stval=0x00000000801b7740
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000801c3a90 p->sz=0x0000000000011000 pid=6252
+            sepc=0x000000000000201a stval=0x00000000801c3a90
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000801cfde0 p->sz=0x0000000000011000 pid=6253
+            sepc=0x000000000000201a stval=0x00000000801cfde0
+usertrap(): 虚拟地址超出进程内存范围 va=0x00000000801dc130 p->sz=0x0000000000011000 pid=6254
+            sepc=0x000000000000201a stval=0x00000000801dc130
+OK
+test sbrkfail: usertrap(): 懒分配失败 va=0x0000000007ecb000 pid=6266
+            sepc=0x0000000000003fd4 stval=0x0000000007ecb000
+OK
+test sbrkarg: OK
+test validatetest: OK
+test stacktest: usertrap(): 虚拟地址位于栈区域以下 va=0x000000000000fbb0 sp=0x0000000000010bb0 pid=6270
+            sepc=0x0000000000002188 stval=0x000000000000fbb0
+OK
+test opentest: OK
+test writetest: OK
+test writebig: OK
+test createtest: OK
+test openiput: OK
+test exitiput: OK
+test iput: OK
+test mem: usertrap(): 懒分配失败 va=0x0000000012101008 pid=6281
+            sepc=0x00000000000059d4 stval=0x0000000012101008
+OK
+test pipe1: OK
+test preempt: kill... wait... OK
+test exitwait: OK
+test rmdot: OK
+test fourteen: OK
+test bigfile: OK
+test dirfile: OK
+test iref: OK
+test forktest: OK
+test bigdir: OK
+usertrap(): 懒分配失败 va=0x0000000007ee1fff pid=6456
+            sepc=0x0000000000004eb6 stval=0x0000000007ee1fff
+ALL TESTS PASSED
+$ qemu-system-riscv64: terminating on signal 15 from pid 47834 (make)
