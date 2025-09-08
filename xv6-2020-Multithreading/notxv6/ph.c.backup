@@ -1,0 +1,164 @@
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <assert.h>
+#include <pthread.h>
+#include <sys/time.h>
+
+// 哈希表配置常量
+#define HASH_BUCKET_COUNT 7    // 哈希桶数量（避免并发写入内存重叠）
+#define TOTAL_KEYS 100000      // 总键数量
+
+// 哈希表节点结构体
+typedef struct HashEntry {
+  int key;
+  int value;
+  struct HashEntry *next;
+} HashEntry;
+
+HashEntry *hash_table[HASH_BUCKET_COUNT];  // 哈希表（链式解决冲突）
+int test_keys[TOTAL_KEYS];                 // 测试用的键数组
+int thread_count = 1;                      // 线程数量
+
+// 每个桶一个互斥锁，实现桶级并发（提高并行性能）
+pthread_mutex_t bucket_mutexes[HASH_BUCKET_COUNT];
+
+// 获取当前时间（秒，用于性能测试）
+double
+get_current_time()
+{
+ struct timeval tv;
+ gettimeofday(&tv, 0);
+ return tv.tv_sec + tv.tv_usec / 1000000.0;
+}
+
+
+// 在链表头插入新节点
+static void 
+insert_entry(int key, int value, HashEntry **head, HashEntry *next_entry)
+{
+  HashEntry *new_entry = malloc(sizeof(HashEntry));
+  new_entry->key = key;
+  new_entry->value = value;
+  new_entry->next = next_entry;
+  *head = new_entry;
+}
+
+
+// 向哈希表插入或更新键值对（线程安全，桶级锁）
+static void hash_put(int key, int value)
+{
+  int bucket_idx = key % HASH_BUCKET_COUNT;
+  HashEntry *entry_ptr = NULL;
+
+  // 查找是否已存在该key
+  for (entry_ptr = hash_table[bucket_idx]; entry_ptr != NULL; entry_ptr = entry_ptr->next) {
+    if (entry_ptr->key == key)
+      break;
+  }
+  if(entry_ptr){
+    // 已存在则直接更新（无需加锁，只是修改值）
+    entry_ptr->value = value;
+  } else {
+    // 新key需要插入：加锁保护链表结构修改
+    pthread_mutex_lock(&bucket_mutexes[bucket_idx]);
+    insert_entry(key, value, &hash_table[bucket_idx], hash_table[bucket_idx]);
+    pthread_mutex_unlock(&bucket_mutexes[bucket_idx]);
+  }
+}
+
+// 查询哈希表，返回对应节点指针（只读操作，无需加锁）
+static HashEntry* hash_get(int key)
+{
+  int bucket_idx = key % HASH_BUCKET_COUNT;
+  HashEntry *entry_ptr = NULL;
+  for (entry_ptr = hash_table[bucket_idx]; entry_ptr != NULL; entry_ptr = entry_ptr->next) {
+    if (entry_ptr->key == key) break;
+  }
+  return entry_ptr;
+}
+
+
+// 线程入口：批量插入键值对
+static void *put_worker(void *arg)
+{
+  int thread_id = (int)(long)arg;
+  int keys_per_thread = TOTAL_KEYS / thread_count;
+  for (int i = 0; i < keys_per_thread; i++) {
+    hash_put(test_keys[keys_per_thread * thread_id + i], thread_id);
+  }
+  return NULL;
+}
+
+// 线程入口：批量查询键值对，统计丢失的键数量
+static void *get_worker(void *arg)
+{
+  int thread_id = (int)(long)arg;
+  int missing_count = 0;
+  for (int i = 0; i < TOTAL_KEYS; i++) {
+    HashEntry *entry_ptr = hash_get(test_keys[i]);
+    if (entry_ptr == NULL) missing_count++;
+  }
+  printf("%d: %d keys missing\n", thread_id, missing_count);
+  return NULL;
+}
+
+
+// 多线程哈希表性能测试主程序
+int main(int argc, char *argv[])
+{
+  pthread_t *thread_handles;
+  void *ret_val;
+  double t_start, t_end;
+
+  if (argc < 2) {
+    fprintf(stderr, "Usage: %s nthreads\n", argv[0]);
+    exit(-1);
+  }
+  thread_count = atoi(argv[1]);
+  thread_handles = malloc(sizeof(pthread_t) * thread_count);
+  srandom(0);
+  assert(TOTAL_KEYS % thread_count == 0);
+  
+  // 生成随机测试键
+  for (int i = 0; i < TOTAL_KEYS; i++) {
+    test_keys[i] = random();
+  }
+
+  // 初始化每个桶的互斥锁
+  for(int i = 0; i < HASH_BUCKET_COUNT; ++i) {
+      pthread_mutex_init(&bucket_mutexes[i], NULL);
+  }
+
+  // 批量插入性能测试
+  t_start = get_current_time();
+  for(int i = 0; i < thread_count; i++) {
+    assert(pthread_create(&thread_handles[i], NULL, put_worker, (void *) (long) i) == 0);
+  }
+  for(int i = 0; i < thread_count; i++) {
+    assert(pthread_join(thread_handles[i], &ret_val) == 0);
+  }
+  t_end = get_current_time();
+
+  printf("%d puts, %.3f seconds, %.0f puts/second\n",
+         TOTAL_KEYS, t_end - t_start, TOTAL_KEYS / (t_end - t_start));
+    assert(pthread_join(thread_handles[i], &ret_val) == 0);
+  }
+  t_end = now();
+
+  printf("%d puts, %.3f seconds, %.0f puts/second\n",
+         TOTAL_KEYS, t_end - t_start, TOTAL_KEYS / (t_end - t_start));
+
+  // 批量查询性能测试
+  t_start = get_current_time();
+  for(int i = 0; i < thread_count; i++) {
+    assert(pthread_create(&thread_handles[i], NULL, get_worker, (void *) (long) i) == 0);
+  }
+  for(int i = 0; i < thread_count; i++) {
+    assert(pthread_join(thread_handles[i], &ret_val) == 0);
+  }
+  t_end = get_current_time();
+
+  printf("%d gets, %.3f seconds, %.0f gets/second\n",
+         TOTAL_KEYS*thread_count, t_end - t_start, (TOTAL_KEYS*thread_count) / (t_end - t_start));
+}
